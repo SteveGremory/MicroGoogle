@@ -1,9 +1,7 @@
 package main
 
 import (
-    "encoding/json"
     "fmt"
-    "os"
     "net/http"
     "MicroGoogle/search"
     "github.com/gin-gonic/gin"
@@ -37,19 +35,6 @@ func QueryGoogle(c *gin.Context) {
 
     res := search.CrawlGoogle(input.Query, input.Pages, "json")
     c.JSON(http.StatusOK, gin.H{"response": res})
-}
-
-func loadResponse() []SerpResponse {
-    // Read the file
-    data, err := os.ReadFile("./whatagain.json")
-    check(err)
-    
-    // Create a response object
-    // Deserialise the JSON
-    var res []SerpResponse
-    json.Unmarshal([]byte(data), &res)
-    
-    return res; 
 }
 
 func main() {
